@@ -1,0 +1,96 @@
+
+a {
+    color: #92badd;
+    display:inline-block;
+    text-decoration: none;
+    font-weight: 400;
+    width: 100%;
+}
+
+.h1 {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display:inline-block;
+    color: #44569b;
+}
+
+.button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #6fdbd0;
+    border: none;
+    color: white;
+    padding: 15px 60px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 15px;
+    -webkit-box-shadow: 0 10px 20px 0 rgba(95, 187, 233, 0.311);
+    box-shadow: 0 10px 20px 0 rgba(95, 187, 233, 0.311);
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.button-icon{
+    margin-left: 12px;
+}
+  
+input[type=button]:hover, .button:hover, input[type=reset]:hover  {
+    background-color: #46a6b8;
+    cursor: pointer;
+}
+  
+input[type=button]:active, .button:active, input[type=reset]:active  {
+    -moz-transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
+}
+
+.field, .fieldtext {
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    text-decoration: none;
+    display: inline-block;
+    border: 2px solid #f6f6f6;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.field:focus, .fieldtext:focus {
+    background-color: #fff;
+    border-bottom: 2px solid #78e7dc;
+    outline: none;
+}
+  
+.field:placeholder, .fieldtext:placeholder {
+    color: #cccccc; 
+}
+
+.button:disabled{
+    background-color: #46a6b8;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 2px;
+    opacity: 0.6;
+    filter: invert(0.8);
+}

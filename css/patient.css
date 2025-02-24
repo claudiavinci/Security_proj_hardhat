@@ -1,0 +1,74 @@
+.flexbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+#wrap-container{
+    margin: 40px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+}
+
+.wrap-elem{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 400px;
+    padding: 30px 10px;
+    align-items: center;
+    height: fit-content;
+    -webkit-box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.914);
+    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.173);
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.fields{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    gap: 10px;
+    filter: blur(10px);
+}
+
+.elem-field{
+    display: block;
+}
+
+.prescr-h1{
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #44569b;
+}
+
+.span{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    user-select: text;
+}
+
+.overlay {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.button-icon{
+    margin-left: 12px;
+}

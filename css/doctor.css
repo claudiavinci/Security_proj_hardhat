@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+body {
+    font-family: "Poppins", sans-serif;
+    height: 100vh;
+    background-color: whitesmoke;
+}
+
+.flexbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.header{
+    text-align: center;
+    width: 50%;
+    border-bottom: 2px solid #78e7dc;
+    font-size: 20px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#form{
+    display: flex;
+    flex-direction: column;
+    width: 730px;
+    height: auto;
+    background-color: white;
+    align-items: center;
+    margin: 25px 0px 70px 0px; 
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    /* max-width: 1000px; */
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    padding: 15px 5px 30px 5px;
+}
+
+.form-content{
+    width: 100%;
+    margin: 15px 0px;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: 15px 35px;
+    font-size: 16px;
+}
+
+.grid-item{
+    display: inline-flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.field {
+    padding: 15px 30px;
+    flex-grow: 1;
+}
+
+.textarea{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+#prescr{
+    width: 100%;
+    min-height: 100px;
+    margin: 0px 0px 30px 0px;
+    padding: 15px 30px;
+    text-align: left;
+    resize: vertical;
+    font-family: "Poppins", sans-serif;
+}
+
+.input-icon{
+    color: #44569b;
+    font-size: 18px;
+}
+
+.summary{
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    place-self: center;
+}
+
+.summ-field{
+    color: #44569b;
+    font-weight: 500;
+}
+
+.summaryh1{
+    font-size: 26px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    display:inline-block;
+    color: #44569b;
+}
+
+.cancel{
+    padding: 15px 40px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 15px;
+    border: none;
+}
+
