@@ -16,5 +16,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     }else{
         // visualizzare le ricette sulla schermata principale
         fillPrescriptionCards(sortedPrescr, wrapCont);
+        wrapCont.addEventListener("click", async (event) => {
+            const btn = event.target;
+            const wrapElem = btn.closest(".wrap-elem");
+            const prescrID = wrapElem.querySelector("#prescrID").innerHTML;
+            const fields = btn.parentElement.previousElementSibling;
+            const overlayInfo = wrapCont.querySelector(".overlay-info");
+
+            // controllo di aver premuto un bottone per evitare eventi indesiderati
+            if (btn.tagName === "BUTTON"){
+                if(wrapElem.querySelector("#prescr").innerHTML.trim() == ''){
+                    const decrypted = await decryptPrescription(prescriptions, prescrID, patient);
+                    const name = decrypted.name.split('/');
+
+                    wrapElem.querySelector("#name").innerHTML = name[0] + ' ' + name[1];
+                    wrapElem.querySelector("#prescr").innerHTML = decrypted.prescr;
+                    wrapElem.querySelector("#birth").innerHTML = decrypted.birth;
+
+                    fields.style.setProperty("filter", "none");
+                    overlayInfo.style.setProperty("display", "none");
+                    btn.innerHTML = 'Evadi ricetta<i class="fa-solid fa-lock button-icon" style="color: #ffffff;"></i>';
+                
+                }else{
+                    
+                }
+            }
+        });
     }
 });
