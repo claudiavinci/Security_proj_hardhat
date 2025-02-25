@@ -3,14 +3,16 @@ import { getPatientPrescriptions, fillPrescriptionCards, decryptPrescription } f
 
 document.addEventListener("DOMContentLoaded", async () => {
     const patient = await getWalletAddress();
-    const prescriptions = await getPatientPrescriptions(patient, false);
+    const prescriptionsTuple = await getPatientPrescriptions(patient, false);
     const wrapCont = document.getElementById("wrap-container");
+    const sortedPrescr = prescriptionsTuple[0];
+    const prescriptions = prescriptionsTuple[1];
     
     if(Object.keys(prescriptions).length == 0){
         wrapCont.innerHTML = "Non ci sono prescrizioni disponibili.";
     }else{
         // visualizzare le ricette sulla schermata principale
-        fillPrescriptionCards(prescriptions, wrapCont);
+        fillPrescriptionCards(sortedPrescr, wrapCont);
 
         // visualizzare, decifrare quando si seleziona la ricetta specifica
         wrapCont.addEventListener("click", async (event) => {
@@ -18,7 +20,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             const wrapElem = btn.closest(".wrap-elem");
             const prescrID = wrapElem.querySelector("#prescrID").innerHTML;
             const fields = btn.parentElement.previousElementSibling;
-            const overlayDate = wrapCont.querySelector("#overlay-date");
+            const overlayInfo = wrapCont.querySelector(".overlay-info");
+            
 
             // controllo di aver premuto un bottone per evitare eventi indesiderati
             if (btn.tagName === "BUTTON"){
@@ -32,13 +35,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                     wrapElem.querySelector("#birth").innerHTML = decrypted.birth;
 
                     fields.style.setProperty("filter", "none");
-                    overlayDate.style.setProperty("display", "none");
+                    overlayInfo.style.setProperty("display", "none");
                     btn.innerHTML = 'Nascondi<i class="fa-solid fa-lock button-icon" style="color: #ffffff;"></i>';
                 
                 }else{
 
                     fields.style.setProperty("filter", "blur(10px)");
-                    overlayDate.style.setProperty("display", "flex");
+                    overlayInfo.style.setProperty("display", "flex");
                     wrapElem.querySelector("#name").innerHTML = '';
                     wrapElem.querySelector("#prescr").innerHTML = '';
                     wrapElem.querySelector("#birth").innerHTML = '';

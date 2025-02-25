@@ -55,7 +55,7 @@ export async function getPatientPrescriptions(patient, unused){
         // get the prescriptions data retrieving from the smart contract
         const prescriptions = await prescrContract.methods.getPatientPrescriptions(patient, unused).call({from: patient});
         
-        for(const prescr of prescriptions){
+        for(let prescr of prescriptions){
             prescrArray[prescr.id] = {
                 data: prescr.encryptedData,
                 isUsed: prescr.isUsed
@@ -68,7 +68,7 @@ export async function getPatientPrescriptions(patient, unused){
             toBlock: 'latest',
         });
 
-        for(var ev in events){
+        for(let ev in events){
             const block = await web3.eth.getBlock(events[ev].blockNumber);
             const date = new Date(block.timestamp * 1000); // Convert seconds to milliseconds
             const formattedDate = date.toLocaleDateString("en-GB"); 
@@ -77,16 +77,30 @@ export async function getPatientPrescriptions(patient, unused){
             prescrArray[id].signature = events[ev].returnValues.signature;
             prescrArray[id].timestamp = formattedDate;
         }
-        return prescrArray;
+
+        var sortedPrescr = []
+        var sorted = Object.entries(prescrArray).sort((a, b) => {
+            new Date(a[1].timestamp) - new Date(b[1].timestamp)
+        }).reverse();
+
+        sorted.forEach((elem) => {
+            let prescr = {}
+            prescr[elem[0]] = elem[1]
+            sortedPrescr.push(prescr)
+        });
+
+        return [sortedPrescr, prescrArray];
+
     }catch(error){
         console.error("Failed to obtain prescriptions data.");
         console.log(error);
     }
 }
 
-export function fillPrescriptionCards(prescr, wrapCont) {
+export function fillPrescriptionCards(sortedPrescr, wrapCont) {
     var content = "";
-    for(var id in prescr){
+    sortedPrescr.forEach((prescr) => {
+        let id = Object.keys(prescr)[0]
         content += `<div class="wrap-elem">
                     <div class="fields">
                         <div class="elem-field">
@@ -119,14 +133,14 @@ export function fillPrescriptionCards(prescr, wrapCont) {
                         </div>
                     </div>
                     <div class="overlay">
-                        <div class="elem-field">
+                        <div class="elem-field overlay-info">
                             <div class="h1" id="overlay-date">${prescr[id].timestamp}</div>
                             <div class="h1" id="overlay-isUsed">${prescr[id].isUsed ? '<i class="fa-solid fa-circle-check" style="color: #44569b;"></i>' : '<i class="fa-regular fa-circle" style="color: #44569b;"></i>'}</div>
                         </div>
                         <button class="button" onclick="">Visualizza<i class="fa-solid fa-unlock button-icon" style="color: #ffffff;"></i></button>
                     </div>
                 </div>`;
-    }
+    })
     wrapCont.innerHTML = content;
 }
 
