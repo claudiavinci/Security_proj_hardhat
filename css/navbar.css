@@ -62,14 +62,21 @@ body {
     cursor: pointer;
 }
 
+.pageheader-cont{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px 10px 40px;
+}
+
 .pageheader{
+    display: inline-flex;
+    align-items: center;
     text-align: left;
     font-size: 28px;
-    margin: 20px 0px 0px 30px;
+    gap: 10px;
 }
 
 #wallet{
-    margin-left: 10px;
     color: #66aff1;
     font-weight: normal;
 }

@@ -5,6 +5,7 @@
         <link rel="icon" type="image/x-icon" href="./img/medical-presc.png">
         <link rel="stylesheet" href="../css/navbar.css">
         <link rel="stylesheet" href="../css/pharma.css">
+        <link rel="stylesheet" href="../css/patient.css">
         <link rel="stylesheet" href="../css/form.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -18,11 +19,21 @@
         <div id="navbar">
         <!-- navbar code will be added here by js -->
         </div>
-        <div class="pageheader">
-            <h1 class="h1">Area personale: </h1><h1 class="h1" id="wallet"></h1>
+        <div class="pageheader-cont">
+            <div class="pageheader">
+                <img src="./../img/pharmacist.png" title="Doctor icon" height="auto" width="2.2%">
+                <h1 class="h1">Area personale: </h1><h1 class="h1" id="wallet"></h1>
+            </div>
+            <div class="pageheader" id="patient">
+                <img src="./../img/user-profile3.svg" alt="Patient" width="2.2%">
+                <h1 class="h1">Paziente: </h1><h1 class="h1" id="patient-wallet"></h1>
+            </div>
         </div>
         <div class="flexbox">
-            
+            <div class="h1" style="font-size: 24px;">Ricette disponibili</div>
+            <div class="wrap-container" id="wrap-container">
+
+            </div>
         </div>
     </body>
 </html>

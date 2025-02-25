@@ -7,7 +7,7 @@
     height: auto;
 }
 
-#wrap-container{
+.wrap-container{
     margin: 40px 20px;
     display: flex;
     flex-wrap: wrap;
@@ -67,6 +67,10 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+#overlay-date{
+    margin-right: 5px;
 }
 
 .button-icon{

@@ -1,4 +1,6 @@
-// import { detectAccountChanges, getWalletAddress } from "./connectionHandler.js";
+import { getWalletAddress } from "./connectionHandler.js";
+import PrescriptionsContract from "./contracts.js";
+import {} from "./patient.js"
 
 document.addEventListener("DOMContentLoaded", () => {
 
