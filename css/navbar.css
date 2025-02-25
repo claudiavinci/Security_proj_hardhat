@@ -76,7 +76,11 @@ body {
     gap: 10px;
 }
 
-#wallet{
+.wallet{
+    text-align: center;
+    font-size: 17px;
+    text-transform: uppercase;
+    display:inline-block;
     color: #66aff1;
     font-weight: normal;
 }
