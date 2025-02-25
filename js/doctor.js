@@ -44,15 +44,50 @@ document.addEventListener("DOMContentLoaded", () => {
                 cancelButton: "cancel",
                 title: "summaryh1",
             }
-
-          }).then(async (result) => {
-                if (result.isConfirmed) {
-                    const doctor = await getWalletAddress();
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Invio ricetta...',
+                    text: 'Attendi fino alla conferma di invio della ricetta',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    didOpen: () => {
+                        Swal.showLoading(); // Show the loading spinner
+                    }
+                });
+                const doctor = await getWalletAddress();
+                try {
                     await sendPrescription(prescription, doctor);
-                    console.log("Confermato");
+                    console.log("Confirmed");
+
+                    // Update the popup with success message
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Ricetta inviata!',
+                        text: 'La ricetta è stata inviata correttamente',
+                        customClass: {
+                            confirmButton: "button",
+                            title: "summaryh1",
+                        }
+                    });
+
                     form.reset();
+
+                } catch (error) {
+                    // Update the popup with error message
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invio non riuscito',
+                        text: "Si è verificato un errore nell'invio della ricetta",
+                        customClass: {
+                            confirmButton: "button",
+                            title: "summaryh1",
+                        }
+                    });
+                    console.error(error);
                 }
-            });
+            }
+        });
     })
 });
 
