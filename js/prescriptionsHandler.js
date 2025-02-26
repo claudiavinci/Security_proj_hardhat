@@ -48,12 +48,12 @@ export async function sendPrescription(prescription, doctor) {
 }
 
 
-export async function getPatientPrescriptions(patient, unused){
+export async function getPatientPrescriptions(patient, caller, unused){
     try{
         // ottengo le ricette dal contratto
         var prescrArray = []
         // get the prescriptions data retrieving from the smart contract
-        const prescriptions = await prescrContract.methods.getPatientPrescriptions(patient, unused).call({from: patient});
+        const prescriptions = await prescrContract.methods.getPatientPrescriptions(patient, unused).call({from: caller});
         
         for(let prescr of prescriptions){
             prescrArray[prescr.id] = {
@@ -163,4 +163,9 @@ export async function decryptPrescription(prescriptions, prescrID, patient){
     } catch (error) {
         console.error("Decryption failed", error);
     }
+}
+
+export async function markAsUsed(prescrID, pharmacist){
+    const tx = await prescrContract.methods.markAsUsed(prescrID).send({from: pharmacist});
+    return tx
 }

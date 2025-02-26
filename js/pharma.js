@@ -1,13 +1,14 @@
 import { getWalletAddress } from "./connectionHandler.js";
 import PrescriptionsContract from "./contracts.js";
-import { getPatientPrescriptions, fillPrescriptionCards, decryptPrescription } from "./prescriptionsHandler.js";
+import { getPatientPrescriptions, fillPrescriptionCards, decryptPrescription, markAsUsed } from "./prescriptionsHandler.js";
 const patient = "0xF06A218700d980560E4145e13B739C9F52a9faE3";
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+    const pharmacist = await getWalletAddress();
     const patientWallet = document.querySelector("#patient-wallet");
     patientWallet.innerHTML = patient;
-    const prescriptionsTuple = await getPatientPrescriptions(patient, true);
+    const prescriptionsTuple = await getPatientPrescriptions(patient, pharmacist, true);
     const wrapCont = document.getElementById("wrap-container");
     const sortedPrescr = prescriptionsTuple[0];
     const prescriptions = prescriptionsTuple[1];
@@ -26,19 +27,73 @@ document.addEventListener("DOMContentLoaded", async () => {
             // controllo di aver premuto un bottone per evitare eventi indesiderati
             if (btn.tagName === "BUTTON"){
                 if(wrapElem.querySelector("#prescr").innerHTML.trim() == ''){
-                    const decrypted = await decryptPrescription(prescriptions, prescrID, patient);
-                    const name = decrypted.name.split('/');
+                    console.log("DENTRO IF")
+                    console.log(wrapElem.querySelector("#prescr").innerHTML)
+                    Swal.fire({
+                        title: 'Richiesta autorizzazione decifratura...',
+                        text: "Attendi fino alla conferma dell'autorizzazione",
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        didOpen: () => {
+                            Swal.showLoading(); // Show the loading spinner
+                        }
+                    });
+                    try{
+                        const decrypted = await decryptPrescription(prescriptions, prescrID, patient);
+                        const name = decrypted.name.split('/');
 
-                    wrapElem.querySelector("#name").innerHTML = name[0] + ' ' + name[1];
-                    wrapElem.querySelector("#prescr").innerHTML = decrypted.prescr;
-                    wrapElem.querySelector("#birth").innerHTML = decrypted.birth;
-
-                    fields.style.setProperty("filter", "none");
-                    overlayInfo.style.setProperty("display", "none");
-                    btn.innerHTML = 'Evadi ricetta<i class="fa-solid fa-lock button-icon" style="color: #ffffff;"></i>';
-                
+                        wrapElem.querySelector("#name").innerHTML = name[0] + ' ' + name[1];
+                        wrapElem.querySelector("#prescr").innerHTML = decrypted.prescr;
+                        wrapElem.querySelector("#birth").innerHTML = decrypted.birth;
+    
+                        fields.style.setProperty("filter", "none");
+                        overlayInfo.style.setProperty("display", "none");
+                        btn.innerHTML = 'Evadi ricetta<i class="fa-solid fa-lock button-icon" style="color: #ffffff;"></i>';
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Autorizzazata',
+                            customClass: {
+                                confirmButton: "button",
+                                title: "summaryh1",
+                            }
+                        });    
+                    }catch(error){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Decifratura non riuscita',
+                            text: "Si è verificato un errore nella decifratura della ricetta",
+                            customClass: {
+                                confirmButton: "button",
+                                title: "summaryh1",
+                            }
+                        });
+                        console.error(error);
+                    }
                 }else{
-                    
+                    Swal.fire({
+                        title: 'Evasione ricetta...',
+                        text: 'Attendi fino alla conferma di marcatura della ricetta',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        didOpen: () => {
+                            Swal.showLoading(); // Show the loading spinner
+                        }
+                    });
+                    // DA TESTARE: EVASIONE RICETTA E RICARICAMENTO PAGINA 
+                    // try{
+                    //     const res = markAsUsed(prescrID)
+                    // }catch(error){
+                    //     Swal.fire({
+                    //         icon: 'error',
+                    //         title: 'Errore nella marcatura',
+                    //         text: "Si è verificato un errore nella decifratura della ricetta",
+                    //         customClass: {
+                    //             confirmButton: "button",
+                    //             title: "summaryh1",
+                    //         }
+                    //     });
+                    //     console.error(error);
+                    // }
                 }
             }
         });

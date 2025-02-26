@@ -3,7 +3,7 @@ import { getPatientPrescriptions, fillPrescriptionCards, decryptPrescription } f
 
 document.addEventListener("DOMContentLoaded", async () => {
     const patient = await getWalletAddress();
-    const prescriptionsTuple = await getPatientPrescriptions(patient, false);
+    const prescriptionsTuple = await getPatientPrescriptions(patient, patient, false);
     const wrapCont = document.getElementById("wrap-container");
     const sortedPrescr = prescriptionsTuple[0];
     const prescriptions = prescriptionsTuple[1];
@@ -26,18 +26,30 @@ document.addEventListener("DOMContentLoaded", async () => {
             // controllo di aver premuto un bottone per evitare eventi indesiderati
             if (btn.tagName === "BUTTON"){
                 if(wrapElem.querySelector("#prescr").innerHTML.trim() == ''){
-                    // if prescription is blurred (not already decrypted)
-                    const decrypted = await decryptPrescription(prescriptions, prescrID, patient);
-                    const name = decrypted.name.split('/');
+                    try{
+                        // if prescription is blurred (not already decrypted)
+                        const decrypted = await decryptPrescription(prescriptions, prescrID, patient);
+                        const name = decrypted.name.split('/');
 
-                    wrapElem.querySelector("#name").innerHTML = name[0] + ' ' + name[1];
-                    wrapElem.querySelector("#prescr").innerHTML = decrypted.prescr;
-                    wrapElem.querySelector("#birth").innerHTML = decrypted.birth;
+                        wrapElem.querySelector("#name").innerHTML = name[0] + ' ' + name[1];
+                        wrapElem.querySelector("#prescr").innerHTML = decrypted.prescr;
+                        wrapElem.querySelector("#birth").innerHTML = decrypted.birth;
 
-                    fields.style.setProperty("filter", "none");
-                    overlayInfo.style.setProperty("display", "none");
-                    btn.innerHTML = 'Nascondi<i class="fa-solid fa-lock button-icon" style="color: #ffffff;"></i>';
-                
+                        fields.style.setProperty("filter", "none");
+                        overlayInfo.style.setProperty("display", "none");
+                        btn.innerHTML = 'Nascondi<i class="fa-solid fa-lock button-icon" style="color: #ffffff;"></i>';
+                    }catch(error){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Decifratura non riuscita',
+                            text: "Si è verificato un errore nella decifratura della ricetta",
+                            customClass: {
+                                confirmButton: "button",
+                                title: "summaryh1",
+                            }
+                        });
+                        console.error(error);
+                    }
                 }else{
 
                     fields.style.setProperty("filter", "blur(10px)");
