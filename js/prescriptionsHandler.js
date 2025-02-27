@@ -54,28 +54,45 @@ export async function getPatientPrescriptions(patient, caller, unused){
         var prescrArray = []
         // get the prescriptions data retrieving from the smart contract
         const prescriptions = await prescrContract.methods.getPatientPrescriptions(patient, unused).call({from: caller});
-        
+
         for(let prescr of prescriptions){
             prescrArray[prescr.id] = {
                 data: prescr.encryptedData,
                 isUsed: prescr.isUsed
             };
         }
+        console.log("Unused Prescription IDs from Contract:", prescriptions);
         // retrieving event logs for the patient to obtain doctor address, signature and timestamp of the issued prescription
         const events = await prescrContract.getPastEvents('prescriptionIssued', {
             filter: {patient: patient},  
             fromBlock: 50,
             toBlock: 'latest',
         });
-
-        for(let ev in events){
-            const block = await web3.eth.getBlock(events[ev].blockNumber);
-            const date = new Date(block.timestamp * 1000); // Convert seconds to milliseconds
-            const formattedDate = date.toLocaleDateString("en-GB"); 
-            const id = events[ev].returnValues.prescr_id;
-            prescrArray[id].doctor = events[ev].returnValues.doctor;
-            prescrArray[id].signature = events[ev].returnValues.signature;
-            prescrArray[id].timestamp = formattedDate;
+        console.log(events);
+        if(unused){
+            for(let prescr in prescrArray){
+                for(let ev in events){
+                    const id = events[ev].returnValues.prescr_id;
+                    if(prescr == id){
+                        const block = await web3.eth.getBlock(events[ev].blockNumber);
+                        const date = new Date(block.timestamp * 1000); // Convert seconds to milliseconds
+                        const formattedDate = date.toLocaleDateString("en-GB"); 
+                        prescrArray[id].doctor = events[ev].returnValues.doctor;
+                        prescrArray[id].signature = events[ev].returnValues.signature;
+                        prescrArray[id].timestamp = formattedDate;
+                    }
+                }
+            }
+        }else{
+            for(let ev in events){
+                const id = events[ev].returnValues.prescr_id;
+                const block = await web3.eth.getBlock(events[ev].blockNumber);
+                const date = new Date(block.timestamp * 1000); // Convert seconds to milliseconds
+                const formattedDate = date.toLocaleDateString("en-GB"); 
+                prescrArray[id].doctor = events[ev].returnValues.doctor;
+                prescrArray[id].signature = events[ev].returnValues.signature;
+                prescrArray[id].timestamp = formattedDate;
+            }
         }
 
         var sortedPrescr = []
@@ -166,6 +183,10 @@ export async function decryptPrescription(prescriptions, prescrID, patient){
 }
 
 export async function markAsUsed(prescrID, pharmacist){
-    const tx = await prescrContract.methods.markAsUsed(prescrID).send({from: pharmacist});
-    return tx
+    try{
+        const tx = await prescrContract.methods.markAsUsed(prescrID).send({from: pharmacist});
+    }
+    catch(error){
+        console.error("Marking failed", error);
+    }
 }

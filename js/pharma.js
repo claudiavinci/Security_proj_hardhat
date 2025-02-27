@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         btn.innerHTML = 'Evadi ricetta<i class="fa-solid fa-lock button-icon" style="color: #ffffff;"></i>';
                         Swal.fire({
                             icon: 'success',
-                            title: 'Autorizzazata',
+                            title: 'Autorizzata!',
                             customClass: {
                                 confirmButton: "button",
                                 title: "summaryh1",
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     }catch(error){
                         Swal.fire({
                             icon: 'error',
-                            title: 'Decifratura non riuscita',
+                            title: 'Decifratura non riuscita!',
                             text: "Si è verificato un errore nella decifratura della ricetta",
                             customClass: {
                                 confirmButton: "button",
@@ -80,20 +80,30 @@ document.addEventListener("DOMContentLoaded", async () => {
                         }
                     });
                     // DA TESTARE: EVASIONE RICETTA E RICARICAMENTO PAGINA 
-                    // try{
-                    //     const res = markAsUsed(prescrID)
-                    // }catch(error){
-                    //     Swal.fire({
-                    //         icon: 'error',
-                    //         title: 'Errore nella marcatura',
-                    //         text: "Si è verificato un errore nella decifratura della ricetta",
-                    //         customClass: {
-                    //             confirmButton: "button",
-                    //             title: "summaryh1",
-                    //         }
-                    //     });
-                    //     console.error(error);
-                    // }
+                    try{
+                        await markAsUsed(prescrID, pharmacist);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Ricetta evasa!',
+                            text: "La ricetta è stata utilizzata correttamente",
+                            customClass: {
+                                confirmButton: "button",
+                                title: "summaryh1",
+                            }
+                        }); 
+                        location.reload()
+                    }catch(error){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Errore nella marcatura!',
+                            text: "Si è verificato un errore nella decifratura della ricetta",
+                            customClass: {
+                                confirmButton: "button",
+                                title: "summaryh1",
+                            }
+                        });
+                        console.error(error);
+                    }
                 }
             }
         });
