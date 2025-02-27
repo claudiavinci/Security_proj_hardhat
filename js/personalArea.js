@@ -24,18 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
 function navbar(){
     const navbarContent = `<div class="left">
                                 <img src="../img/SRD_logo.svg" alt="Sistema Ricetta Digitale" id="logo">
-                                <div class="elem">
-                                    <span class="nav-span">Prova</span>
-                                </div>
-                                <div class="elem">
-                                    <span class="nav-span">Prova</span>
-                                </div>
+
                             </div>
-                            
                             <div class="right">
                                 <i id="logout" class="fa-solid fa-arrow-right-from-bracket" style="color: #ffffff;"></i>
                             </div>`;
-
+// <div class="elem">
+//     <span class="nav-span">Prova</span>
+// </div>
+// <div class="elem">
+//     <span class="nav-span">Prova</span>
+// </div>
     const navbar = document.getElementById('navbar');
     navbar.innerHTML = navbarContent;
 }
