@@ -10,3 +10,11 @@
     margin-top: 0px;
 }
 
+.summaryh1{
+    font-size: 26px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    display:inline-block;
+    color: #44569b;
+}

@@ -36,7 +36,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                         allowEscapeKey: false,
                         didOpen: () => {
                             Swal.showLoading(); // Show the loading spinner
-                        }
+                        },
+                        customClass: {
+                            title: "summaryh1",
+                        },
                     });
                     try{
                         const decrypted = await decryptPrescription(prescriptions, prescrID, patient);
@@ -77,7 +80,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                         allowEscapeKey: false,
                         didOpen: () => {
                             Swal.showLoading(); // Show the loading spinner
-                        }
+                        },
+                        customClass: {
+                            title: "summaryh1",
+                        },
                     });
                     // DA TESTARE: EVASIONE RICETTA E RICARICAMENTO PAGINA 
                     try{

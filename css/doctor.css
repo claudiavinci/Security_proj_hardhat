@@ -34,7 +34,7 @@ form{
     height: auto;
     background-color: white;
     align-items: center;
-    margin: 25px 0px 70px 0px; 
+    margin: 10px 0px 70px 0px; 
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
     /* max-width: 1000px; */
@@ -103,7 +103,7 @@ form{
 }
 
 .summaryh1{
-    font-size: 26px;
+    font-size: 20px;
     text-align: center;
     font-weight: 600;
     text-transform: uppercase;
