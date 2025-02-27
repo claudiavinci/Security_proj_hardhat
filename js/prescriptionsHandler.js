@@ -15,12 +15,22 @@ const prescrContract = new web3.eth.Contract(PrescriptionsContract.abi, Prescrip
 // 3. verifica della firma del medico
 // 4. decifrare con metamask
 
-export async function sendPrescription(prescription, doctor) {
-
+export async function sendPrescription(prescription, doctor, patient) {
+    // obtain the encryption public key of the patient -> needed to encrypt the prescriptions
+    const encryptionPublicKey = await window.ethereum.request({
+        "method": "eth_getEncryptionPublicKey",
+        "params": [
+            patient
+        ],
+    });
+    const data = {
+        prescription: prescription,
+        encryptionPublicKey: encryptionPublicKey
+    }
     const response = await fetch("/encryptPrescription", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(prescription),
+        body: JSON.stringify(data),
         credentials: 'include', //to allow cookies to
     })
     if(response.ok){

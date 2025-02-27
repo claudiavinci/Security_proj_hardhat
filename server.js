@@ -137,14 +137,12 @@ app.post('/logout', (req, res) => {
 });
 
 app.post('/encryptPrescription', (req, res) => {
-    // encryption public key of patient which has to authorize the retrieving of the public key
-    const encryptionPublicKey = "fxcAZDagqXrg0QZoH6ostKb902PkJ9U7necfeE7YeVg=";
-    const prescription = req.body;
 
+    const data = req.body;
     // produce un JSON contenente i dati cifrati più altri metadati
     const encryptedData = ethSigUtil.encrypt({
-        publicKey: encryptionPublicKey,
-        data: JSON.stringify(prescription),
+        publicKey: data.encryptionPublicKey,
+        data: JSON.stringify(data.prescription),
         version: "x25519-xsalsa20-poly1305"
     }) 
     console.log(encryptedData);

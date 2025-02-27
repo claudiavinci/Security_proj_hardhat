@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
-        const timestamp = Date.now(); // Current timestamp
+        // const timestamp = Date.now(); // Current timestamp
         const formattedDate = new Date(document.getElementById("birth").value).toLocaleDateString();
         const prescription = { 
             wallet: document.getElementById("walletaddr").value,
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 const doctor = await getWalletAddress();
                 try {
-                    await sendPrescription(prescription, doctor);
+                    await sendPrescription(prescription, doctor, prescription.wallet);
                     console.log("Confirmed");
 
                     // Update the popup with success message
