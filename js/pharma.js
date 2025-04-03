@@ -1,7 +1,10 @@
 import { getWalletAddress } from "./connectionHandler.js";
 import PrescriptionsContract from "./contracts.js";
 import { getPatientPrescriptions, fillPrescriptionCards, decryptPrescription, markAsUsed } from "./prescriptionsHandler.js";
+// paziente 1
 const patient = "0xF06A218700d980560E4145e13B739C9F52a9faE3";
+// paziente 2
+// const patient = "0xA7452e24300F1080E8c0195AeC1F1336Be3BcfeD";
 
 
 document.addEventListener("DOMContentLoaded", async () => {
