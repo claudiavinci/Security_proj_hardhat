@@ -6,6 +6,10 @@
     height: auto;
 }
 
+#prescr-flex{
+    display: none;
+}
+
 #patient{
     margin-top: 0px;
 }
@@ -17,4 +21,33 @@
     text-transform: uppercase;
     display:inline-block;
     color: #44569b;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 700px;
+    gap: 5px;
+    margin: 20px 0px 35px 0px;
+}
+
+#walletaddr{
+    padding: 15px 30px;
+    width: 400px;
+    background-color: #fff;
+    border-bottom: 2px solid #78e7dc;
+    outline: none;
+}
+
+.input-icon{
+    color: #44569b;
+    font-size: 18px;
+    padding: 15px;
+}
+
+#search{
+    cursor: pointer;
 }
