@@ -6,8 +6,6 @@ import { getPatientPrescriptions, fillPrescriptionCards, decryptPrescription, ma
 // paziente 2
 // const patient = "0xA7452e24300F1080E8c0195AeC1F1336Be3BcfeD";
 
-// FUNZIONA, DA AGGIUNGERE VALIDAZIONE CAMPO INPUT PRIMA DELLA RICERCA
-
 document.addEventListener("DOMContentLoaded", async () => {
     const pharmacist = await getWalletAddress();
     const searchButton = document.getElementById("search");
