@@ -189,6 +189,7 @@ export async function decryptPrescription(prescriptions, prescrID, patient){
 
     } catch (error) {
         console.error("Decryption failed", error);
+        throw error;
     }
 }
 
@@ -198,5 +199,6 @@ export async function markAsUsed(prescrID, pharmacist){
     }
     catch(error){
         console.error("Marking failed", error);
+        throw error;
     }
 }

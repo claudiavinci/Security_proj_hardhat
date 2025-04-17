@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Errore nella marcatura!',
-                        text: "Si è verificato un errore nella decifratura della ricetta",
+                        text: "Si è verificato un errore nella marcatura della ricetta",
                         customClass: {
                             confirmButton: "button",
                             title: "summaryh1",
